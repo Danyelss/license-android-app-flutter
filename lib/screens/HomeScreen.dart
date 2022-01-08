@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,15 +6,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/porscheLogin.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Center(
         child: Column(
           children: [
             IconButton(
-                icon: SvgPicture.asset(
-                  'assets/vault.svg',
-                ),
-                onPressed: null //do something,
-                ),
+              icon: Image.asset('assets/vault.png'),
+              iconSize: 50,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Image.asset('assets/vault.png'),
+              iconSize: 50,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Image.asset('assets/vault.png'),
+              iconSize: 50,
+              onPressed: () {},
+            ),
           ],
         ),
       ),

@@ -32,10 +32,11 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 150),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width * (2 / 3),
-                height: MediaQuery.of(context).size.height - 30 - 50,
+                //height: MediaQuery.of(context).size.height - 30 - 50,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
