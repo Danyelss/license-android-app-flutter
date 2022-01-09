@@ -1,4 +1,7 @@
-// ignore: file_names
+import 'package:crypto_bank_android_app/screens/DepositScreen.dart';
+import 'package:crypto_bank_android_app/screens/VaultScreen.dart';
+import 'package:crypto_bank_android_app/screens/WithdrawScreen.dart';
+import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,57 +20,13 @@ class HomeScreen extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            const SizedBox(height: 70),
-            Row(
-              children: [
-                const SizedBox(height: 10),
-                Expanded(
-                  flex: 5,
-                  child: new GestureDetector(
-                    onTap: () {
-                      print("Container clicked");
-                    },
-                    child: Align(
-                      alignment: Alignment(-1, 1),
-                      child: Container(
-                        width: 100,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/homeButton.png'),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: new GestureDetector(
-                    onTap: () {
-                      print("Container clicked");
-                    },
-                    child: Align(
-                      alignment: Alignment(1, -1),
-                      child: Container(
-                        width: 40,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/logoutButton.png'),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Header(),
             new GestureDetector(
               onTap: () {
-                print("Container clicked");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => VaultScreen()),
+                );
               },
               child: Container(
                 width: 200,
@@ -83,7 +42,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             new GestureDetector(
               onTap: () {
-                print("Container clicked");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DepositScreen()),
+                );
               },
               child: Container(
                 width: 200,
@@ -99,7 +61,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             new GestureDetector(
               onTap: () {
-                print("Container clicked");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WithdrawScreen()),
+                );
               },
               child: Container(
                 width: 200,

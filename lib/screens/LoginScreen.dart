@@ -1,7 +1,18 @@
+import 'package:crypto_bank_android_app/screens/HomeScreen.dart';
+import 'package:crypto_bank_android_app/screens/RegisterScreen.dart';
+import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +26,17 @@ class LoginScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 60),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.white),
                 minimumSize: const Size(150, 50),
               ),
               onPressed: () {
-                // Respond to button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                );
               },
               child: Text(
                 "Register",
@@ -32,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 150),
+            const SizedBox(height: 140),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width * (2 / 3),
@@ -40,41 +54,30 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Text(
-                      'Username',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
+                    TextFieldWidget(
+                      label: 'Username',
+                      textController: usernameController,
+                      password: false,
                     ),
-                    const SizedBox(height: 10),
-                    const TextField(
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
+                    TextFieldWidget(
+                      label: 'Password',
+                      textController: passwordController,
+                      password: true,
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Password',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white),
                         minimumSize: const Size(150, 50),
                       ),
                       onPressed: () {
-                        // Respond to button press
+                        print(usernameController.text);
+                        print(passwordController.text);
+                        usernameController.clear();
+                        passwordController.clear();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
                       },
                       child: Text(
                         "Login",
