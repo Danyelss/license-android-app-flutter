@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  const Header({Key? key, required this.isHome}) : super(key: key);
+
+  final bool isHome;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,9 @@ class Header extends StatelessWidget {
               flex: 5,
               child: new GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  if (!isHome) {
+                    Navigator.pop(context);
+                  }
                 },
                 child: Align(
                   alignment: Alignment(-1, 1),

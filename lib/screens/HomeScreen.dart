@@ -9,7 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.height;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -20,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Header(),
+            const Header(isHome: true),
             new GestureDetector(
               onTap: () {
                 Navigator.push(

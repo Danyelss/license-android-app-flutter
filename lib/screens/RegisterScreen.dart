@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Navigator.pop(context);
               },
               child: Text(
-                "register",
+                "Register",
                 style: TextStyle(
                   fontSize: 25,
                   color: Colors.white.withOpacity(1),
