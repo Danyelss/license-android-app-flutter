@@ -1,5 +1,6 @@
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DepositScreen extends StatefulWidget {
   const DepositScreen({Key? key}) : super(key: key);
@@ -29,6 +30,21 @@ class _DepositScreenState extends State<DepositScreen> {
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 25,
+              ),
+            ),
+            new GestureDetector(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: "your text"));
+              },
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/vault.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ],
