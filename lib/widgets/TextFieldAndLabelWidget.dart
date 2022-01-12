@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  const TextFieldWidget(
-      {Key? key,
-      required this.label,
-      required this.textController,
-      required this.password,
-      required this.enabled})
-      : super(key: key);
+  const TextFieldWidget({
+    Key? key,
+    required this.label,
+    required this.textController,
+    required this.password,
+  }) : super(key: key);
 
   final String label;
   final TextEditingController textController;
   final bool password;
-  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class TextFieldWidget extends StatelessWidget {
       child: TextField(
         controller: textController,
         obscureText: password,
-        enabled: enabled,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: label,

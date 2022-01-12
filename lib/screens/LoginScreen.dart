@@ -58,13 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       label: 'Username',
                       textController: usernameController,
                       password: false,
-                      enabled: true,
                     ),
                     TextFieldWidget(
                       label: 'Password',
                       textController: passwordController,
                       password: true,
-                      enabled: true,
                     ),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
