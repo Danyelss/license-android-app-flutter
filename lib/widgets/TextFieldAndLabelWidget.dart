@@ -5,12 +5,14 @@ class TextFieldWidget extends StatelessWidget {
       {Key? key,
       required this.label,
       required this.textController,
-      required this.password})
+      required this.password,
+      required this.enabled})
       : super(key: key);
 
   final String label;
   final TextEditingController textController;
   final bool password;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,8 @@ class TextFieldWidget extends StatelessWidget {
       height: 88,
       child: TextField(
         controller: textController,
-        obscureText: password ? true : false,
+        obscureText: password,
+        enabled: enabled,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: label,

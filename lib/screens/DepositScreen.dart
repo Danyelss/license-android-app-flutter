@@ -1,4 +1,5 @@
 import 'package:crypto_bank_android_app/widgets/Header.dart';
+import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,6 +11,8 @@ class DepositScreen extends StatefulWidget {
 }
 
 class _DepositScreenState extends State<DepositScreen> {
+  TextEditingController addressController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +35,39 @@ class _DepositScreenState extends State<DepositScreen> {
                 fontSize: 25,
               ),
             ),
-            new GestureDetector(
-              onTap: () {
-                Clipboard.setData(ClipboardData(text: "your text"));
+            const SizedBox(height: 100),
+            Container(
+                width: MediaQuery.of(context).size.width * (2 / 3),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                        child: new Text(
+                      addressController.text,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
+                    ))
+                  ],
+                )),
+            const SizedBox(height: 20),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.white),
+                minimumSize: const Size(150, 50),
+              ),
+              onPressed: () {
+                addressController.text =
+                    "0x031aCa498E1e4De96E54F22A35fc300a67D4acF2";
+                Clipboard.setData(ClipboardData(text: addressController.text));
+                setState(() {});
               },
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/vault.png'),
-                    fit: BoxFit.cover,
-                  ),
+              child: Text(
+                "Copy",
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white.withOpacity(1),
                 ),
               ),
             ),

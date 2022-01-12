@@ -56,33 +56,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: EdgeInsets.all(12.0),
                   children: [
                     TextFieldWidget(
-                        label: 'Username',
-                        textController: usernameController,
-                        password: false),
+                      label: 'Username',
+                      textController: usernameController,
+                      password: false,
+                      enabled: true,
+                    ),
                     TextFieldWidget(
                       label: 'Password',
                       textController: passwordController,
                       password: true,
+                      enabled: true,
                     ),
                     TextFieldWidget(
                       label: 'Email',
                       textController: emailController,
                       password: false,
+                      enabled: true,
                     ),
                     TextFieldWidget(
                       label: 'First Name',
                       textController: firstNameController,
                       password: false,
+                      enabled: true,
                     ),
                     TextFieldWidget(
                       label: 'Last Name',
                       textController: lastNameController,
                       password: false,
+                      enabled: true,
                     ),
                     TextFieldWidget(
                       label: 'Phone Number',
                       textController: phoneNumberController,
                       password: false,
+                      enabled: true,
                     ),
                   ],
                 ),
