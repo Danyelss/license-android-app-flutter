@@ -37,10 +37,10 @@ class _VaultScreenState extends State<VaultScreen> {
                 width: 50,
                 height: 50,
                 child: RiveAnimation.asset('assets/reloadiconanimation.riv')),
-            const SizedBox(height: 100),
+            const SizedBox(height: 20),
             Container(
-              width: 200,
-              height: 200,
+              width: 160,
+              height: 208,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/EthVault.png'),
