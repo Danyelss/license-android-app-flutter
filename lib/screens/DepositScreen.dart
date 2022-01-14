@@ -35,7 +35,7 @@ class _DepositScreenState extends State<DepositScreen> {
                 fontSize: 25,
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 80),
             Container(
                 width: MediaQuery.of(context).size.width * (2 / 3),
                 child: Row(
@@ -51,7 +51,7 @@ class _DepositScreenState extends State<DepositScreen> {
                     ))
                   ],
                 )),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.white),

@@ -38,13 +38,14 @@ class _VaultScreenState extends State<VaultScreen> {
                 height: 50,
                 child: RiveAnimation.asset('assets/reloadiconanimation.riv')),
             const SizedBox(height: 100),
-            Text(
-              'ETH icon',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 50,
+            Container(
+              width: 200,
+              height: 200,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/EthVault.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 50),
