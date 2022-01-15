@@ -39,7 +39,7 @@ class _VaultScreenState extends State<VaultScreen> {
                 child: RiveAnimation.asset('assets/reloadiconanimation.riv')),
             const SizedBox(height: 20),
             Container(
-              width: 160,
+              width: 180,
               height: 208,
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -48,14 +48,16 @@ class _VaultScreenState extends State<VaultScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
-            Text(
-              '25.2535242',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 25,
+            Container(
+              transform: Matrix4.translationValues(0.0, -55.0, 0.0),
+              child: Text(
+                '25.2535242',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
               ),
             ),
           ],
