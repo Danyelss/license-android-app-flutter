@@ -1,12 +1,20 @@
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VaultScreen extends StatefulWidget {
   const VaultScreen({Key? key}) : super(key: key);
 
   @override
   _VaultScreenState createState() => _VaultScreenState();
+}
+
+Future<void> getBalance() async {
+  final SharedPreferences store = await SharedPreferences.getInstance();
+  final String token = await store.getString('acces_token') ?? "null";
+
+  // setState(() => usernameController.text = patientPhone);
 }
 
 class _VaultScreenState extends State<VaultScreen> {
