@@ -5,7 +5,6 @@ import 'package:crypto_bank_android_app/storage/user_data.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dio/dio.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -77,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         print(usernameController.text);
                         print(passwordController.text);
 
-                        // request
+                        login(usernameController.text, passwordController.text)
+                            .then((value) => print(value));
 
                         setToken("Compot");
 
@@ -87,17 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         //getToken().then((value) => token = value);
 
-                        if (token != "null") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                          );
-                          usernameController.clear();
-                          passwordController.clear();
-                        } else {
-                          passwordController.clear();
-                        }
+                        //if (token != "null") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                        usernameController.clear();
+                        passwordController.clear();
+                        // } else {
+                        passwordController.clear();
+                        // }
                       },
                       child: Text(
                         "Login",

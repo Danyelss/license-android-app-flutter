@@ -11,3 +11,25 @@ test1() async {
     print(e);
   }
 }
+
+Future<bool> login(String username, String password) async {
+  var headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json',
+    'Authorization': '<Your token>'
+  };
+  var request = http.Request(
+      'POST', Uri.parse('https://license-crypto-bank.herokuapp.com/api/login'));
+  request.bodyFields = {'username': username, 'password': password};
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  } else {
+    print(response.reasonPhrase.toString() + "wtf");
+  }
+
+  return false;
+}
