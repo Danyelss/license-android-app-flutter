@@ -19,3 +19,13 @@ setRefreshToken(String token) async {
   SharedPreferences store = await SharedPreferences.getInstance();
   store.setString('refresh_token', token);
 }
+
+deleteAccesToken() async {
+  SharedPreferences store = await SharedPreferences.getInstance();
+  store.setString('acces_token', "null");
+}
+
+deleteRefreshToken() async {
+  SharedPreferences store = await SharedPreferences.getInstance();
+  store.setString('refresh_token', "null");
+}
