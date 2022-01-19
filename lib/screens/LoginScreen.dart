@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController informationalController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 140),
+            Container(
+              height: 140,
+              child: Center(
+                child: Text(
+                  informationalController.text,
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white.withOpacity(1),
+                  ),
+                ),
+              ),
+            ),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width * (2 / 3),
@@ -90,9 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         minimumSize: const Size(150, 50),
                       ),
                       onPressed: () {
-                        print(usernameController.text);
-                        print(passwordController.text);
-
+                        informationalController.text = "";
                         loading = true;
 
                         setState(() {});
@@ -110,6 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           } else {
                             passwordController.clear();
+                            informationalController.text =
+                                "Wrong username or password";
                           }
                           setState(() {});
                         });

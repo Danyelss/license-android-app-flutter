@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:crypto_bank_android_app/storage/user_data.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,7 +21,44 @@ Future<bool> login(String username, String password) async {
     return true;
   } else {
     print(response.reasonPhrase.toString()); // wrong pass or username
-    return false;
+  }
+
+  return false;
+}
+
+Future<bool> register(
+  String username,
+  String password,
+  String firstName,
+  String lastName,
+  String email,
+  String phoneNumber,
+) async {
+  var headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': '<Your token>'
+  };
+  var request = http.Request('POST',
+      Uri.parse('https://license-crypto-bank.herokuapp.com/api/register'));
+  request.body = json.encode({
+    "username": username,
+    "password": password,
+    "first_name": firstName,
+    "last_name": lastName,
+    "email": email,
+    "phone_number": phoneNumber,
+    "roles": []
+  });
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString()); // multiple 200 responses
+    return true;
+  } else {
+    print(response.reasonPhrase);
   }
 
   return false;

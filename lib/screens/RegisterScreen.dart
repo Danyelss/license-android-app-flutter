@@ -1,3 +1,4 @@
+import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/screens/HomeScreen.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 print(firstNameController.text);
                 print(lastNameController.text);
                 print(phoneNumberController.text);
-                Navigator.pop(context);
+
+                register(
+                    usernameController.text,
+                    passwordController.text,
+                    firstNameController.text,
+                    lastNameController.text,
+                    emailController.text,
+                    phoneNumberController.text);
+
+                Navigator.pop(
+                    context); // loading screen + informational message
               },
               child: Text(
                 "Register",
