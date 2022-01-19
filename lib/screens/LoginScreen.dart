@@ -14,11 +14,28 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool loading = false;
+  bool logedIn = false;
+
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (loading)
+      return Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/porscheLogin.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(child: CircularProgressIndicator()));
+
+    return loginWidget(context);
+  }
+
+  Widget loginWidget(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -76,27 +93,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         print(usernameController.text);
                         print(passwordController.text);
 
+                        loading = true;
+
+                        setState(() {});
+
                         login(usernameController.text, passwordController.text)
-                            .then((value) => print(value));
-
-                        setToken("Compot");
-
-                        String token = "null";
-
-                        test1();
-
-                        //getToken().then((value) => token = value);
-
-                        //if (token != "null") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        );
-                        usernameController.clear();
-                        passwordController.clear();
-                        // } else {
-                        passwordController.clear();
-                        // }
+                            .then((value) {
+                          loading = false;
+                          if (value) {
+                            usernameController.clear();
+                            passwordController.clear();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()),
+                            );
+                          } else {
+                            passwordController.clear();
+                          }
+                          setState(() {});
+                        });
                       },
                       child: Text(
                         "Login",

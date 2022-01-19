@@ -1,11 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<String> getToken() async {
+Future<String> getAccesToken() async {
   SharedPreferences store = await SharedPreferences.getInstance();
   return store.getString('acces_token') ?? "null";
 }
 
-setToken(String token) async {
+setAccesToken(String token) async {
   SharedPreferences store = await SharedPreferences.getInstance();
   store.setString('acces_token', token);
 }

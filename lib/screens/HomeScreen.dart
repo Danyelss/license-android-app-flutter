@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const Header(isHome: true),
-            new GestureDetector(
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            new GestureDetector(
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            new GestureDetector(
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,

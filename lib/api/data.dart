@@ -1,16 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-test1() async {
-  try {
-    var response = await http.post(
-        Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
-        body: {"test": "test"});
-    print(response.body);
-  } catch (e) {
-    print(e);
-  }
-}
+import 'package:crypto_bank_android_app/storage/user_data.dart';
+import 'package:http/http.dart' as http;
 
 Future<bool> login(String username, String password) async {
   var headers = {
@@ -18,6 +9,7 @@ Future<bool> login(String username, String password) async {
     'Accept': 'application/json',
     'Authorization': '<Your token>'
   };
+
   var request = http.Request(
       'POST', Uri.parse('https://license-crypto-bank.herokuapp.com/api/login'));
   request.bodyFields = {'username': username, 'password': password};
@@ -26,10 +18,21 @@ Future<bool> login(String username, String password) async {
   http.StreamedResponse response = await request.send();
 
   if (response.statusCode == 200) {
-    print(await response.stream.bytesToString());
+    decodeFromJson(json.decode(await response.stream.bytesToString()));
+    return true;
   } else {
-    print(response.reasonPhrase.toString() + "wtf");
+    print(response.reasonPhrase.toString()); // wrong pass or username
+    return false;
   }
 
   return false;
+}
+
+void decodeFromJson(Map<String, dynamic> json) {
+  String refresh_token = json['refresh_token'];
+  String acces_token = json['acces_token'];
+  print(acces_token);
+
+  setRefreshToken(refresh_token);
+  setAccesToken(acces_token);
 }
