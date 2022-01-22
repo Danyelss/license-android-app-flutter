@@ -105,3 +105,77 @@ Future<String> balance() async {
     return "undefined";
   }
 }
+
+String decodeFromJsonDeposit(Map<String, dynamic> json) {
+  return json['adress'];
+}
+
+Future<String> deposit() async {
+  var headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer ' + 'null'
+  };
+  await getAccesToken().then((token) {
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+  });
+
+  var request = http.Request('POST',
+      Uri.parse('https://license-crypto-bank.herokuapp.com/api/deposit'));
+
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    return decodeFromJsonDeposit(
+        json.decode(await response.stream.bytesToString()));
+  } else {
+    print(response.reasonPhrase);
+    return "undefined";
+  }
+}
+
+Future<String> withdraw(String address, String ammount) async {
+  var headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer ' + 'null'
+  };
+  await getAccesToken().then((token) {
+    headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+  });
+
+  var request = http.Request('POST',
+      Uri.parse('https://license-crypto-bank.herokuapp.com/api/withdraw'));
+  request.bodyFields = {'address': address, 'ammount': ammount};
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    return decodeFromJsonWithdraw(
+        json.decode(await response.stream.bytesToString()));
+  } else {
+    return decodeFromJsonError(
+        json.decode(await response.stream.bytesToString()));
+  }
+}
+
+String decodeFromJsonWithdraw(Map<String, dynamic> json) {
+  print(json['response']);
+  return json['response'];
+}
+
+String decodeFromJsonError(Map<String, dynamic> json) {
+  print(json['error_message'].toString() + "wtf");
+  return json['error_message'].toString();
+}

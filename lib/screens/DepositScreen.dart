@@ -1,3 +1,4 @@
+import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,17 @@ class DepositScreen extends StatefulWidget {
 
 class _DepositScreenState extends State<DepositScreen> {
   TextEditingController addressController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => deposit().then((value) => {
+              setState(() {
+                addressController.text = value;
+              })
+            }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +70,6 @@ class _DepositScreenState extends State<DepositScreen> {
                 minimumSize: const Size(150, 50),
               ),
               onPressed: () {
-                addressController.text =
-                    "0x031aCa498E1e4De96E54F22A35fc300a67D4acF2";
                 Clipboard.setData(ClipboardData(text: addressController.text));
                 setState(() {});
               },

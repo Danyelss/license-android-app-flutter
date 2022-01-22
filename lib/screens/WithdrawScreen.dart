@@ -1,3 +1,4 @@
+import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,10 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                         side: const BorderSide(color: Colors.white),
                         minimumSize: const Size(150, 50),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        withdraw(addressController.text, ammountController.text)
+                            .then((value) => null);
+                      },
                       child: Text(
                         "Withdraw",
                         style: TextStyle(
