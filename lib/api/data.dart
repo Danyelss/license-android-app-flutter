@@ -17,7 +17,7 @@ Future<bool> login(String username, String password) async {
   http.StreamedResponse response = await request.send();
 
   if (response.statusCode == 200) {
-    decodeFromJson(json.decode(await response.stream.bytesToString()));
+    decodeFromJsonToken(json.decode(await response.stream.bytesToString()));
     return true;
   } else {
     print(response.reasonPhrase.toString()); // wrong pass or username
@@ -64,11 +64,46 @@ Future<bool> register(
   return false;
 }
 
-void decodeFromJson(Map<String, dynamic> json) {
+void decodeFromJsonToken(Map<String, dynamic> json) {
   String refresh_token = json['refresh_token'];
   String acces_token = json['acces_token'];
   print(acces_token);
 
   setRefreshToken(refresh_token);
   setAccesToken(acces_token);
+}
+
+String decodeFromJsonBalance(Map<String, dynamic> json) {
+  return json['eth'];
+}
+
+Future<String> balance() async {
+  var headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer ' + 'null'
+  };
+  await getAccesToken().then((token) {
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+  });
+
+  print(headers.toString());
+  var request = http.Request('POST',
+      Uri.parse('https://license-crypto-bank.herokuapp.com/api/balance'));
+
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    return decodeFromJsonBalance(
+        json.decode(await response.stream.bytesToString()));
+  } else {
+    print(response.reasonPhrase);
+    return "undefined";
+  }
 }

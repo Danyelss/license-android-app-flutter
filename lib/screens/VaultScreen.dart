@@ -1,3 +1,4 @@
+import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -18,6 +19,16 @@ Future<void> getBalance() async {
 }
 
 class _VaultScreenState extends State<VaultScreen> {
+  TextEditingController balanceController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      balance().then((value) => balanceController.text = value.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +70,7 @@ class _VaultScreenState extends State<VaultScreen> {
             Container(
               transform: Matrix4.translationValues(0.0, -55.0, 0.0),
               child: Text(
-                '25.2535242',
+                balanceController.text,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
