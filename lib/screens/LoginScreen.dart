@@ -72,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Center(
                 child: Text(
                   informationalController.text,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 25,
                     color: Colors.white.withOpacity(1),
@@ -107,24 +108,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         setState(() {});
 
-                        login(usernameController.text, passwordController.text)
-                            .then((value) {
+                        if (usernameController.text.length >= 4 &&
+                            passwordController.text.length >= 4) {
+                          login(usernameController.text,
+                                  passwordController.text)
+                              .then((value) {
+                            loading = false;
+                            if (value) {
+                              usernameController.clear();
+                              passwordController.clear();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()),
+                              );
+                            } else {
+                              passwordController.clear();
+                              informationalController.text =
+                                  "Wrong username or password";
+                            }
+                            setState(() {});
+                          });
+                        } else {
                           loading = false;
-                          if (value) {
-                            usernameController.clear();
-                            passwordController.clear();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()),
-                            );
-                          } else {
-                            passwordController.clear();
-                            informationalController.text =
-                                "Wrong username or password";
-                          }
-                          setState(() {});
-                        });
+                          passwordController.clear();
+                          informationalController.text =
+                              "Username and Password must have at least 4 characters";
+                        }
                       },
                       child: Text(
                         "Login",

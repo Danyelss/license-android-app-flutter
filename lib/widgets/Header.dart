@@ -1,4 +1,5 @@
 import 'package:crypto_bank_android_app/screens/LoginScreen.dart';
+import 'package:crypto_bank_android_app/storage/user_data.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -41,6 +42,9 @@ class Header extends StatelessWidget {
               flex: 5,
               child: new GestureDetector(
                 onTap: () {
+                  clearRefreshToken();
+                  clearAccesToken();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => LoginScreen()),

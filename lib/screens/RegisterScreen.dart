@@ -1,6 +1,7 @@
 import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/screens/HomeScreen.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
+import 'package:crypto_bank_android_app/widgets/alertdialog_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  String info = "";
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +30,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child: ListView(
           children: [
-            const SizedBox(height: 60),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white),
-                minimumSize: const Size(150, 50),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                "Back",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white.withOpacity(1),
+            Align(
+              alignment: Alignment.topCenter,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.white),
+                  minimumSize: Size(150, 50),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Back",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white.withOpacity(1),
+                  ),
                 ),
               ),
             ),
@@ -90,35 +94,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white),
-                minimumSize: const Size(150, 50),
-              ),
-              onPressed: () {
-                print(usernameController.text);
-                print(passwordController.text);
-                print(emailController.text);
-                print(firstNameController.text);
-                print(lastNameController.text);
-                print(phoneNumberController.text);
+            Align(
+              alignment: Alignment.topCenter,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.white),
+                  minimumSize: Size(150, 50),
+                ),
+                onPressed: () {
+                  // make alert with variables
+                  bool username =
+                      usernameController.text.length >= 4 ? true : false;
+                  bool password =
+                      passwordController.text.length >= 4 ? true : false;
+                  bool firstName =
+                      firstNameController.text.length >= 1 ? true : false;
+                  bool lastName =
+                      lastNameController.text.length >= 1 ? true : false;
+                  bool email = emailController.text.length >= 6 ? true : false;
+                  bool phone =
+                      phoneNumberController.text.length >= 10 ? true : false;
 
-                register(
-                    usernameController.text,
-                    passwordController.text,
-                    firstNameController.text,
-                    lastNameController.text,
-                    emailController.text,
-                    phoneNumberController.text);
+                  if (username &&
+                      password &&
+                      firstName &&
+                      lastName &&
+                      email &&
+                      phone) {
+                    register(
+                        usernameController.text,
+                        passwordController.text,
+                        firstNameController.text,
+                        lastNameController.text,
+                        emailController.text,
+                        phoneNumberController.text);
 
-                Navigator.pop(
-                    context); // loading screen + informational message
-              },
-              child: Text(
-                "Register",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white.withOpacity(1),
+                    Navigator.pop(
+                        context); // loading screen + informational message
+
+                  } else {
+                    if (!username)
+                      info += "Username must be at least 4 characters. \n";
+                    if (!password)
+                      info += "Password must be at least 4 characters. \n";
+                    if (!email)
+                      info += "Email must be at least 6 characters. \n";
+                    if (!firstName)
+                      info += "First Name must be at least 1 character. \n";
+                    if (!lastName)
+                      info += "Last Name must be at least 1 character. \n";
+                    if (!phone)
+                      info += "Phone Number must be at least 10 characters. \n";
+
+                    _showDialog(context);
+                  }
+                },
+                child: Text(
+                  "Register",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white.withOpacity(1),
+                  ),
                 ),
               ),
             ),
@@ -127,68 +163,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  _showDialog(BuildContext context) {
+    VoidCallback continueCallBack =
+        () => {Navigator.of(context).pop(), info = ""};
+
+    BlurryDialog alert = BlurryDialog(
+      "null",
+      info,
+      continueCallBack,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
-
-/*
-ListView(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFieldWidget(
-                    label: 'Username',
-                    textController: usernameController,
-                    password: false,
-                  ),
-                  //const SizedBox(height: 10),
-                  TextFieldWidget(
-                    label: 'Password',
-                    textController: passwordController,
-                    password: true,
-                  ),
-                  //const SizedBox(height: 10),
-                  TextFieldWidget(
-                    label: 'Email',
-                    textController: emailController,
-                    password: false,
-                  ),
-                  //const SizedBox(height: 10),
-                  TextFieldWidget(
-                    label: 'First Name',
-                    textController: firstNameController,
-                    password: false,
-                  ),
-                  //const SizedBox(height: 10),
-                  TextFieldWidget(
-                    label: 'Last Name',
-                    textController: lastNameController,
-                    password: false,
-                  ),
-                  //const SizedBox(height: 10),
-                  TextFieldWidget(
-                    label: 'Phone Number',
-                    textController: phoneNumberController,
-                    password: false,
-                  ),
-                  //const SizedBox(height: 10),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white),
-                      minimumSize: const Size(150, 50),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
-                    },
-                    child: Text(
-                      "register",
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white.withOpacity(1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-    */
