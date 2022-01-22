@@ -67,7 +67,6 @@ Future<bool> register(
 void decodeFromJsonToken(Map<String, dynamic> json) {
   String refresh_token = json['refresh_token'];
   String acces_token = json['acces_token'];
-  print(acces_token);
 
   setRefreshToken(refresh_token);
   setAccesToken(acces_token);
@@ -91,7 +90,6 @@ Future<String> balance() async {
     };
   });
 
-  print(headers.toString());
   var request = http.Request('POST',
       Uri.parse('https://license-crypto-bank.herokuapp.com/api/balance'));
 

@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:crypto_bank_android_app/api/data.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cron/cron.dart';
+import 'dart:io';
 
 class VaultScreen extends StatefulWidget {
   const VaultScreen({Key? key}) : super(key: key);
@@ -20,17 +24,34 @@ Future<void> getBalance() async {
 
 class _VaultScreenState extends State<VaultScreen> {
   TextEditingController balanceController = TextEditingController();
+  var cron = new Cron();
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      balance().then((value) => balanceController.text = value.toString());
+    timer = Timer.periodic(Duration(seconds: 10), (Timer t) {
+      balance().then((value) => {
+            setState(() {
+              balanceController.text = value;
+            })
+          });
     });
   }
 
   @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    balance().then((value) => {
+          setState(() {
+            balanceController.text = value;
+          })
+        });
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
