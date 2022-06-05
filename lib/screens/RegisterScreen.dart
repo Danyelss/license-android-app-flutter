@@ -4,6 +4,8 @@ import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:crypto_bank_android_app/widgets/alertdialog_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../service_locator/service_locator.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -19,6 +21,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   String info = "";
+
+  final _dataApi = getIt<DataApi>();
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       lastName &&
                       email &&
                       phone) {
-                    register(
+                    _dataApi.register(
                         usernameController.text,
                         passwordController.text,
                         firstNameController.text,

@@ -1,4 +1,5 @@
 import 'package:crypto_bank_android_app/api/data.dart';
+import 'package:crypto_bank_android_app/service_locator/service_locator.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,11 @@ class WithdrawScreen extends StatefulWidget {
 }
 
 class _WithdrawScreenState extends State<WithdrawScreen> {
-  @override
   TextEditingController addressController = TextEditingController();
   TextEditingController ammountController = TextEditingController();
+  final _dataApi = getIt<DataApi>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -59,7 +62,9 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                         minimumSize: const Size(150, 50),
                       ),
                       onPressed: () {
-                        withdraw(addressController.text, ammountController.text)
+                        _dataApi
+                            .withdraw(
+                                addressController.text, ammountController.text)
                             .then((value) => null);
                       },
                       child: Text(

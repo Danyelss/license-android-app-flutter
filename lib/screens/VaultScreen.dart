@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:crypto_bank_android_app/api/data.dart';
+import 'package:crypto_bank_android_app/service_locator/service_locator.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -26,12 +27,13 @@ class _VaultScreenState extends State<VaultScreen> {
   TextEditingController balanceController = TextEditingController();
   var cron = new Cron();
   Timer? timer;
+  final _dataApi = getIt<DataApi>();
 
   @override
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(seconds: 10), (Timer t) {
-      balance().then((value) => {
+      _dataApi.balance().then((value) => {
             setState(() {
               balanceController.text = value;
             })
@@ -47,7 +49,7 @@ class _VaultScreenState extends State<VaultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    balance().then((value) => {
+    _dataApi.balance().then((value) => {
           setState(() {
             balanceController.text = value;
           })

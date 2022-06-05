@@ -1,8 +1,10 @@
 import 'package:crypto_bank_android_app/screens/LoginScreen.dart';
 import 'package:crypto_bank_android_app/screens/TestScreen.dart';
+import 'package:crypto_bank_android_app/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 

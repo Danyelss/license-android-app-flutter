@@ -1,4 +1,5 @@
 import 'package:crypto_bank_android_app/api/data.dart';
+import 'package:crypto_bank_android_app/service_locator/service_locator.dart';
 import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:crypto_bank_android_app/widgets/TextFieldAndLabelWidget.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,13 @@ class DepositScreen extends StatefulWidget {
 
 class _DepositScreenState extends State<DepositScreen> {
   TextEditingController addressController = TextEditingController();
+  final _dataApi = getIt<DataApi>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!
-        .addPostFrameCallback((_) => deposit().then((value) => {
+        .addPostFrameCallback((_) => _dataApi.deposit().then((value) => {
               setState(() {
                 addressController.text = value;
               })
