@@ -6,7 +6,6 @@ import 'package:crypto_bank_android_app/widgets/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cron/cron.dart';
 import 'dart:io';
 
 class VaultScreen extends StatefulWidget {
@@ -16,16 +15,9 @@ class VaultScreen extends StatefulWidget {
   _VaultScreenState createState() => _VaultScreenState();
 }
 
-Future<void> getBalance() async {
-  final SharedPreferences store = await SharedPreferences.getInstance();
-  final String token = await store.getString('acces_token') ?? "null";
-
-  // setState(() => usernameController.text = patientPhone);
-}
 
 class _VaultScreenState extends State<VaultScreen> {
   TextEditingController balanceController = TextEditingController();
-  var cron = new Cron();
   Timer? timer;
   final _dataApi = getIt<DataApi>();
 
@@ -107,4 +99,11 @@ class _VaultScreenState extends State<VaultScreen> {
       ),
     );
   }
+}
+
+Future<void> getBalance() async {
+  final SharedPreferences store = await SharedPreferences.getInstance();
+  final String token = await store.getString('acces_token') ?? "null";
+
+  // setState(() => usernameController.text = patientPhone);
 }
